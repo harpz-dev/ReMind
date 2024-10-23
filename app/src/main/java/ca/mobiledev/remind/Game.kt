@@ -18,24 +18,30 @@ class Game : BaseActivity(){
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
         //setContentView(R.layout.activity_game)
-    }
 
-    fun onClick(v: View){
+        for (i in 1..42){
 
-        for (i in 0..29){
-            val button = findViewById<AppCompatButton>((R.id.btnRound1+i))
+            val buttonId= "btnRound$i"
+            val resId= resources.getIdentifier(buttonId, "id", packageName)
+            val button = findViewById<AppCompatButton>(resId)
             var counter = 0
             button.setOnClickListener {
                 if(button.isPressed) {
                     counter += 1
                 }
                 if(counter%2==1){
-                    button.setBackgroundColor(resources.getColor(R.color.blue))
+                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                //  button.setBackgroundColor(resources.getColor(R.color.blue))
                 }
                 else{
-                    button.setBackgroundColor(resources.getColor(R.color.grey))
+                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button))
                 }
             }
         }
+    }
+
+    fun onClick(v: View){
+
+
     }
 }
