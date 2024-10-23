@@ -7,9 +7,13 @@ class MazeModel() {
     val COL= 6
 
     lateinit var solutionList: ArrayList<Int>
+    lateinit var selectedList: ArrayList<Int>
+
+
 
     init{
 
+       // solutionList.addAll(   )
 
     }
 
