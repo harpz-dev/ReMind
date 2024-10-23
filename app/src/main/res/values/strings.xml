@@ -9,11 +9,13 @@
     <string name="nav_home">Home</string>
     <string name="nav_history">Score History</string>
     <string name="nav_settings">Settings</string>
+    <string name="button_start">Start</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="game_activity">Game</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

@@ -1,6 +1,11 @@
 package ca.mobiledev.remind
 
+import android.content.ActivityNotFoundException
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -20,6 +25,7 @@ open class BaseActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
+
         drawerLayout = findViewById(R.id.drawer_layout)
 
         val navView: NavigationView = findViewById(R.id.navView)
@@ -27,6 +33,16 @@ open class BaseActivity : AppCompatActivity() {
         val toggle= ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        val startButton = findViewById<Button>(R.id.btnStart)
+        startButton.setOnClickListener {
+            val intent = Intent(applicationContext, Game::class.java)
+            try {
+                startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                Log.e(TAG, "Unable to start the activity")
+            }
+        }
 
         navView.setNavigationItemSelectedListener { menuItem->
             when(menuItem.itemId){
