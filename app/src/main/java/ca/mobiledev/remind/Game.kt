@@ -12,12 +12,12 @@ import androidx.annotation.InspectableProperty
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 
-class Game : AppCompatActivity(){
+class Game : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutInflater.inflate(R.layout.activity_main, findViewById(R.id.gameGrid))
-        setContentView(R.layout.activity_game)
+        layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
+        //setContentView(R.layout.activity_game)
     }
 
     fun onClick(v: View){
