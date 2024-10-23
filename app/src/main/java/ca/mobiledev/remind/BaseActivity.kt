@@ -22,6 +22,7 @@ open class BaseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_base)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.setTitle(R.string.app_name)
+        toolbar.setBackgroundColor(resources.getColor(R.color.blue))
         setSupportActionBar(toolbar)
 
 
@@ -35,6 +36,8 @@ open class BaseActivity : AppCompatActivity() {
         toggle.syncState()
 
         val startButton = findViewById<Button>(R.id.btnStart)
+        startButton.setBackgroundColor(resources.getColor(R.color.blue))
+        startButton.setTextColor(resources.getColor(R.color.white))
         startButton.setOnClickListener {
             val intent = Intent(applicationContext, Game::class.java)
             try {
