@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <GridLayout
         android:id="@+id/gameGrid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnRound1"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="0"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -25,9 +27,9 @@
             android:id="@+id/btnRound2"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="0"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -35,9 +37,9 @@
             android:id="@+id/btnRound3"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="0"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -45,9 +47,9 @@
             android:id="@+id/btnRound4"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="0"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -55,9 +57,9 @@
             android:id="@+id/btnRound5"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="0"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -65,9 +67,9 @@
             android:id="@+id/btnRound6"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="0"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -75,9 +77,9 @@
             android:id="@+id/btnRound7"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="1"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -85,9 +87,9 @@
             android:id="@+id/btnRound8"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="1"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -95,9 +97,9 @@
             android:id="@+id/btnRound9"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="1"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -105,9 +107,9 @@
             android:id="@+id/btnRound10"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="1"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -115,9 +117,9 @@
             android:id="@+id/btnRound11"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="1"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -125,9 +127,9 @@
             android:id="@+id/btnRound12"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="1"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -135,9 +137,9 @@
             android:id="@+id/btnRound13"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="2"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -145,9 +147,9 @@
             android:id="@+id/btnRound14"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="2"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -155,9 +157,9 @@
             android:id="@+id/btnRound15"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="2"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -165,9 +167,9 @@
             android:id="@+id/btnRound16"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="2"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -175,9 +177,9 @@
             android:id="@+id/btnRound17"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="2"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -185,9 +187,9 @@
             android:id="@+id/btnRound18"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="2"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -195,9 +197,9 @@
             android:id="@+id/btnRound19"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="3"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -205,9 +207,9 @@
             android:id="@+id/btnRound20"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="3"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -215,9 +217,9 @@
             android:id="@+id/btnRound21"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="3"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -225,9 +227,9 @@
             android:id="@+id/btnRound22"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="3"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -235,9 +237,9 @@
             android:id="@+id/btnRound23"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="3"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -245,9 +247,9 @@
             android:id="@+id/btnRound24"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="3"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -255,9 +257,9 @@
             android:id="@+id/btnRound25"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="4"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -265,9 +267,9 @@
             android:id="@+id/btnRound26"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="4"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -275,9 +277,9 @@
             android:id="@+id/btnRound27"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="4"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -285,9 +287,9 @@
             android:id="@+id/btnRound28"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="4"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -295,9 +297,9 @@
             android:id="@+id/btnRound29"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="4"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -305,9 +307,9 @@
             android:id="@+id/btnRound30"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="4"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -315,9 +317,9 @@
             android:id="@+id/btnRound31"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="5"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -325,9 +327,9 @@
             android:id="@+id/btnRound32"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="5"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -335,9 +337,9 @@
             android:id="@+id/btnRound33"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="5"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -345,9 +347,9 @@
             android:id="@+id/btnRound34"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="5"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -355,9 +357,9 @@
             android:id="@+id/btnRound35"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="5"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -365,9 +367,9 @@
             android:id="@+id/btnRound36"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="5"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -375,9 +377,9 @@
             android:id="@+id/btnRound37"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="6"
             android:layout_column="0"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -385,9 +387,9 @@
             android:id="@+id/btnRound38"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="6"
             android:layout_column="1"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -395,9 +397,9 @@
             android:id="@+id/btnRound39"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="6"
             android:layout_column="2"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -405,9 +407,9 @@
             android:id="@+id/btnRound40"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="6"
             android:layout_column="3"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -415,9 +417,9 @@
             android:id="@+id/btnRound41"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="6"
             android:layout_column="4"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -425,9 +427,9 @@
             android:id="@+id/btnRound42"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_margin="12dp"
             android:layout_row="6"
             android:layout_column="5"
+            android:layout_margin="12dp"
             android:background="@drawable/round_button"
             android:onClick="onClick" />
 
@@ -437,12 +439,12 @@
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/gameGrid"
+        android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
-        android:textColor="@color/white"
         android:backgroundTint="@color/blue"
         android:onClick="compareList"
-        android:text="@string/game_submit" />
+        android:text="@string/game_submit"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
