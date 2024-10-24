@@ -1,5 +1,6 @@
 package ca.mobiledev.remind
 
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout
 import androidx.annotation.InspectableProperty
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.google.android.material.snackbar.Snackbar
 
 class Game : AppCompatActivity(){
 
@@ -101,20 +103,27 @@ class Game : AppCompatActivity(){
     }
 
     fun compareList(v: View){
-
         val submitButton = findViewById<AppCompatButton>(R.id.btnSubmit)
         submitButton.setOnClickListener{
-
             if(!gameButtons.containsAll(userButtons) || !userButtons.containsAll(gameButtons)){
-                val popup = PopupWindow()
-                popup.showAtLocation(v, Gravity.TOP,10,10)
+                val popup = Snackbar.make(v,"Try Again", 1000)
+                popup.show()
                 Log.w("Not in list", "Not in list")
             }
             else{
                 Log.w("All good", "All good")
-                }
-
+                val builder = AlertDialog.Builder(v.context)
+                builder.setMessage("You won")
+                    .setPositiveButton("Congrats") { dialog, id ->
+                        // START THE GAME!
+                    }
+                    .setNegativeButton("Try again") { dialog, id ->
+                        // User cancelled the dialog.
+                    }
+                // Create the AlertDialog object and return it.
+                builder.create()
+                builder.show()
+            }
         }
-
     }
 }
