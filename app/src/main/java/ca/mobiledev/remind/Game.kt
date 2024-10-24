@@ -59,10 +59,12 @@ class Game : AppCompatActivity(){
                 }
                 if(counter%2==1){
                     button1.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                    userButtons.add(button1)
                     //  button.setBackgroundColor(resources.getColor(R.color.blue))
                 }
                 else{
                     button1.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button))
+                    userButtons.remove(button1)
                 }
             }
 
