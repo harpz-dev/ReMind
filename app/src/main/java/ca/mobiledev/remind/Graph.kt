@@ -1,5 +1,7 @@
 package ca.mobiledev.remind
 
+import android.util.Log
+
 
 // Class representing a point in the grid
 data class Point(val x: Int, val y: Int)
@@ -15,7 +17,7 @@ class Node(val point: Point) {
 
 // Class representing the graph
 class Graph(private val rows: Int, private val cols: Int) {
-    private val grid: Array<Array<Node?>> = Array(rows) { arrayOfNulls<Node>(cols) }
+     val grid: Array<Array<Node?>> = Array(rows) { arrayOfNulls<Node>(cols) }
 
     init {
         createNodes()
@@ -47,6 +49,7 @@ class Graph(private val rows: Int, private val cols: Int) {
                 }
             }
         }
+        printGraph()
     }
 
     // Check if the position is within the bounds of the grid
