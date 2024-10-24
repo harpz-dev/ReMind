@@ -49,7 +49,6 @@ class Graph(private val rows: Int, private val cols: Int) {
                 }
             }
         }
-        printGraph()
     }
 
     // Check if the position is within the bounds of the grid
