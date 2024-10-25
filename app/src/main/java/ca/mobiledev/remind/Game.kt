@@ -4,7 +4,9 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -20,12 +22,9 @@ class Game : BaseActivity(){
 
     var state: State= State.PREGAME
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
-
-
 
         //setting up the onClickListeners for the buttons
         for (i in 1..42){
@@ -38,6 +37,7 @@ class Game : BaseActivity(){
                     draw()
                 }
             }
+
         }
 
         //pregame state: call to draw solution
@@ -65,8 +65,16 @@ class Game : BaseActivity(){
                 val buttonId = "btnRound$i"
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
                 val button = findViewById<AppCompatButton>(resId)
-                button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
-            }
+                if(i == solution.get(0)){
+                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_start))
+                }
+                else if(i == solution.get(solution.lastIndex)){
+                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_end))
+                }
+                else {
+                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                }
+                }
         }
 
         else if(state==State.INGAME){
@@ -104,6 +112,8 @@ class Game : BaseActivity(){
                     Log.w("Not in list", "Not in list")
                     Log.w("solution", solution.toString())
                     Log.w("selected", selected.toString())
+                    //state = State.PREGAME
+                    //draw()
                 } else {
                     Log.w("All good", "All good")
                     Log.w("solution", solution.toString())

@@ -3,6 +3,8 @@ package ca.mobiledev.remind
 import android.util.Log
 import java.util.Collections
 import java.util.LinkedList
+import java.util.PriorityQueue
+import kotlin.math.abs
 
 class MazeModel() {
 
@@ -91,14 +93,23 @@ class MazeModel() {
 
     ////////////////////////////////////////
 
-    // Directions for moving in the graph: up, down, left, right
     val directions = arrayOf(
-        -6,  // up (move to button above)
-        6,   // down (move to button below)
-        -1,  // left (move to button on the left)
-        1    // right (move to button on the right)
+        -6,  // up
+        6,   // down
+        -1,  // left
+        1,   // right
+        -7,  // up-left diagonal
+        -5,  // up-right diagonal
+        5,   // down-left diagonal
+        7    // down-right diagonal
     )
 
+    // Convert button number to grid coordinates (6x7 grid)
+    fun buttonToCoordinates(button: Int): Pair<Int, Int> {
+        val row = (button - 1) / 6
+        val col = (button - 1) % 6
+        return Pair(row, col)
+    }
 
     // Check if moving left or right stays within the same row (prevents row-jumping)
     fun sameRow(button1: Int, button2: Int): Boolean {
@@ -110,57 +121,99 @@ class MazeModel() {
         return button in 1..42
     }
 
-    // Function that returns the shortest path between two buttons as a list of integers
-    fun shortestPath(startButton: Int, midButton: Int, endButton: Int): List<Int> {
-        // Helper function to find path from one button to another
-        fun bfsPath(from: Int, to: Int): List<Int>? {
-            val queue: LinkedList<Pair<Int, List<Int>>> = LinkedList()
-            val visited = mutableSetOf<Int>()
+    // Manhattan distance heuristic
+    fun heuristic(a: Int, b: Int): Int {
+        val (rowA, colA) = buttonToCoordinates(a)
+        val (rowB, colB) = buttonToCoordinates(b)
+        return abs(rowA - rowB) + abs(colA - colB)
+    }
 
-            queue.add(Pair(from, listOf(from)))
-            visited.add(from)
+    // Node class to store button and path information
+    data class Node(val button: Int, val path: List<Int>)
 
-            while (queue.isNotEmpty()) {
-                val (currentButton, path) = queue.poll()
 
-                // If we've reached the target button, return the path
-                if (currentButton == to) return path
+    // A* Pathfinding function to find a path without backtracking
+    fun aStarPath(start: Int, end: Int, visited: Set<Int>): List<Int> {
+        val priorityQueue = PriorityQueue<Node>(compareBy { it.path.size }) // Use path length as priority
+        priorityQueue.add(Node(start, listOf(start)))
 
-                // Explore neighbors (up, down, left, right)
-                for (direction in directions) {
-                    val nextButton = currentButton + direction
+        while (priorityQueue.isNotEmpty()) {
+            val currentNode = priorityQueue.poll()
+            val currentButton = currentNode.button
+            val currentPath = currentNode.path
 
-                    // Ensure the move stays within bounds and does not wrap/jump rows
-                    if (isValid(nextButton) && nextButton !in visited) {
-                        // Check for row-jumping on horizontal moves
-                        if ((direction == -1 || direction == 1) && !sameRow(currentButton, nextButton)) continue
+            // If we've reached the target button, return the path
+            if (currentButton == end) return currentPath
 
-                        visited.add(nextButton)
-                        queue.add(Pair(nextButton, path + nextButton))
+            // Explore neighbors (up, down, left, right, and diagonals)
+            for (direction in directions) {
+                val nextButton = currentButton + direction
+
+                // Ensure the move stays within bounds and does not wrap/jump rows
+                if (isValid(nextButton)) {
+                    val (currRow, currCol) = buttonToCoordinates(currentButton)
+                    val (nextRow, nextCol) = buttonToCoordinates(nextButton)
+
+                    // Horizontal moves: check for row continuity
+                    if ((direction == -1 || direction == 1) && !sameRow(currentButton, nextButton)) continue
+
+                    // Diagonal moves: check row and column continuity
+                    if ((direction == -7 || direction == -5 || direction == 5 || direction == 7) &&
+                        (abs(currRow - nextRow) != 1 || abs(currCol - nextCol) != 1)
+                    ) continue
+
+                    // Ensure the nextButton has not been visited
+                    if (nextButton !in visited) {
+                        val newPath = currentPath + nextButton
+                        priorityQueue.add(Node(nextButton, newPath))
                     }
                 }
             }
-
-            // Return null if there's no valid path
-            return null
         }
 
-        // Find the path from startButton to midButton
-        val pathToMid = bfsPath(startButton, midButton) ?: return emptyList()
+        // If no valid path was found, return an empty list
+        return emptyList()
+    }
 
-        // Find the path from midButton to endButton
-        val pathToEnd = bfsPath(midButton, endButton) ?: return emptyList()
+    // Function to find the full path from startButton to endButton via midButton
+    fun findPathWithMid(startButton: Int, midButton: Int, endButton: Int): List<Int> {
+        // Create a set of visited buttons initially containing startButton
+        val visited = mutableSetOf(startButton)
 
-        // Combine paths, excluding the midButton from the second path
+        // Find path from startButton to midButton
+        val pathToMid = aStarPath(startButton, midButton, visited)
+
+        // If no valid path to mid, return empty
+        if (pathToMid.isEmpty()) return emptyList()
+
+        // Update visited to include path to mid
+        visited.addAll(pathToMid)
+
+        // Find path from midButton to endButton, reusing the updated visited set
+        val pathToEnd = aStarPath(midButton, endButton, visited)
+
+        // If no valid path to end, return empty
+        if (pathToEnd.isEmpty()) return emptyList()
+
+        // Combine paths, excluding the midButton from the second path to avoid duplication
         return pathToMid + pathToEnd.drop(1)
     }
+
+
     ////////////////////////////////////////////////////////
 
     init{
-        //solutionList.addAll(arrayOf(1, 7, 13, 19, 25,26))
-        val point1 = (1..42).random()
-        val point2 = (1..42).random()
-        val point3 = (1..42).random()
-        solutionList.addAll(shortestPath(point1, point2, point3))
+        var point1 = (1..42).random()
+        var point2 = (1..42).random()
+        var point3 = (1..42).random()
+
+        while(point1 == point2 || point2 == point3){
+            point1 = (1..42).random()
+            point2 = (1..42).random()
+            point3 = (1..42).random()
+        }
+            solutionList.addAll(findPathWithMid(point1, point2, point3))
+        Log.w("points", "($point1, $point2, $point3)")
+        Log.w("points", "Solution list: $solutionList")
     }
 }
