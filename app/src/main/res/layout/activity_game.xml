@@ -443,7 +443,7 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -451,6 +451,8 @@
             android:layout_marginEnd="1dp"
             android:text="@string/submit"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/submit_button"
+            android:onClick="compareList"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
