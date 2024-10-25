@@ -111,42 +111,56 @@ class MazeModel() {
     }
 
     // Function that returns the shortest path between two buttons as a list of integers
-    fun shortestPath(startButton: Int, endButton: Int): List<Int> {
-        val queue: LinkedList<Pair<Int, List<Int>>> = LinkedList()
-        val visited = mutableSetOf<Int>()
+    fun shortestPath(startButton: Int, midButton: Int, endButton: Int): List<Int> {
+        // Helper function to find path from one button to another
+        fun bfsPath(from: Int, to: Int): List<Int>? {
+            val queue: LinkedList<Pair<Int, List<Int>>> = LinkedList()
+            val visited = mutableSetOf<Int>()
 
-        // Initialize BFS with the start point
-        queue.add(Pair(startButton, listOf(startButton)))
-        visited.add(startButton)
+            queue.add(Pair(from, listOf(from)))
+            visited.add(from)
 
-        while (queue.isNotEmpty()) {
-            val (currentButton, path) = queue.poll()
+            while (queue.isNotEmpty()) {
+                val (currentButton, path) = queue.poll()
 
-            // If we've reached the end point, return the path
-            if (currentButton == endButton) return path
+                // If we've reached the target button, return the path
+                if (currentButton == to) return path
 
-            // Explore neighbors (up, down, left, right)
-            for (direction in directions) {
-                val nextButton = currentButton + direction
+                // Explore neighbors (up, down, left, right)
+                for (direction in directions) {
+                    val nextButton = currentButton + direction
 
-                // Ensure the move stays within bounds and does not wrap/jump rows
-                if (isValid(nextButton) && nextButton !in visited) {
-                    // Check for row-jumping on horizontal moves
-                    if ((direction == -1 || direction == 1) && !sameRow(currentButton, nextButton)) continue
+                    // Ensure the move stays within bounds and does not wrap/jump rows
+                    if (isValid(nextButton) && nextButton !in visited) {
+                        // Check for row-jumping on horizontal moves
+                        if ((direction == -1 || direction == 1) && !sameRow(currentButton, nextButton)) continue
 
-                    visited.add(nextButton)
-                    queue.add(Pair(nextButton, path + nextButton))
+                        visited.add(nextButton)
+                        queue.add(Pair(nextButton, path + nextButton))
+                    }
                 }
             }
+
+            // Return null if there's no valid path
+            return null
         }
 
-        // Return an empty list if there's no valid path
-        return emptyList()
+        // Find the path from startButton to midButton
+        val pathToMid = bfsPath(startButton, midButton) ?: return emptyList()
+
+        // Find the path from midButton to endButton
+        val pathToEnd = bfsPath(midButton, endButton) ?: return emptyList()
+
+        // Combine paths, excluding the midButton from the second path
+        return pathToMid + pathToEnd.drop(1)
     }
     ////////////////////////////////////////////////////////
 
     init{
         //solutionList.addAll(arrayOf(1, 7, 13, 19, 25,26))
-        solutionList.addAll(shortestPath((1..42).random(), (1..42).random()))
+        val point1 = (1..42).random()
+        val point2 = (1..42).random()
+        val point3 = (1..42).random()
+        solutionList.addAll(shortestPath(point1, point2, point3))
     }
 }

@@ -1,11 +1,13 @@
 package ca.mobiledev.remind
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.snackbar.Snackbar
+
 
 class Game : BaseActivity(){
 
@@ -23,12 +25,19 @@ class Game : BaseActivity(){
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
 
+        val refresh = findViewById<AppCompatButton>(R.id.buttonRefresh)
+
+        refresh.setOnClickListener{
+            val i: Intent = Intent(this, Game::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(i)
+            finish()
+        }
+
         //setting up the onClickListeners for the buttons
         for (i in 1..42){
             val buttonId= "btnRound$i"
             val resId= resources.getIdentifier(buttonId, "id", packageName)
             val button = findViewById<AppCompatButton>(resId)
-            var counter = 0
             button.setOnClickListener {
                 if(button.isPressed) {
                    model.addPoint(i)
