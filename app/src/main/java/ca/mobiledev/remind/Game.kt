@@ -25,13 +25,7 @@ class Game : BaseActivity(){
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
 
-        val refresh = findViewById<AppCompatButton>(R.id.buttonRefresh)
 
-        refresh.setOnClickListener{
-            val i: Intent = Intent(this, Game::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(i)
-            finish()
-        }
 
         //setting up the onClickListeners for the buttons
         for (i in 1..42){
@@ -54,6 +48,12 @@ class Game : BaseActivity(){
     }
 
     fun onClick(v: View){}
+
+    fun refresh(v:View){
+            val i: Intent = Intent(this, Game::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(i)
+            finish()
+    }
 
     private fun draw(){
         //If state is pregame
@@ -110,11 +110,8 @@ class Game : BaseActivity(){
                     Log.w("selected", selected.toString())
                     val builder = AlertDialog.Builder(v.context)
                     builder.setMessage("You won")
-                        .setPositiveButton("Congrats") { dialog, id ->
-                            // START THE GAME!
-                        }
-                        .setNegativeButton("Try again") { dialog, id ->
-                            // User cancelled the dialog.
+                        .setPositiveButton("Try again?") { dialog, id ->
+                            refresh(v)
                         }
                     // Create the AlertDialog object and return it.
                     builder.create()
