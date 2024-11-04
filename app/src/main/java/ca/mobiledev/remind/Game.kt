@@ -1,12 +1,10 @@
 package ca.mobiledev.remind
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -15,12 +13,17 @@ class Game : BaseActivity(){
 
     private val model:MazeModel= MazeModel()
 
+    private var solutionList: List<Int> = emptyList()// = model.getNextSolution()
+
+
+    private lateinit var buttonGrid: List<AppCompatButton>
+
     //State machine for the view (PREGAME SHOWING THE SOLUTION VS INGAME SHOWING USER SELECTION
     enum class State{
         PREGAME, INGAME
     }
 
-    var state: State= State.PREGAME
+    private var state: State= State.PREGAME
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,16 @@ class Game : BaseActivity(){
             }
 
         }
+        // Initialize the button grid once
+        /*buttonGrid = (1..42).map { i ->
+            val buttonId = "btnRound$i"
+            val resId = resources.getIdentifier(buttonId, "id", packageName)
+
+            findViewById<AppCompatButton>(resId)
+
+        }*/
+
+        //solutionList = model.getNext()
 
         //pregame state: call to draw solution
         draw()
@@ -47,32 +60,103 @@ class Game : BaseActivity(){
         state= State.INGAME
     }
 
-    fun onClick(v: View){}
+    //fun onClick(v: View){}
 
-    fun refresh(v:View){
-            val i: Intent = Intent(this, Game::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(i)
-            finish()
+    fun clear(v:View){
+        for (i in 1..42){
+            val buttonId= "btnRound$i"
+            val resId= resources.getIdentifier(buttonId, "id", packageName)
+            val button = findViewById<AppCompatButton>(resId)
+            button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button))
+
+        }
     }
 
-    private fun draw(){
+    fun refresh(v: View){
+        clear(v)
+        Log.d("points", "Refreshed game")
+
+        state = State.PREGAME
+
+        draw()
+            //Log.d("points", "Refreshed game with new solution: $solutionList")
+        state = State.INGAME
+        //} else {
+            //Log.d("points", "No solution available, generating a new path.")
+        //}
+            //val i: Intent = Intent(this, Game::class.java).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            //s/tartActivity(i)
+            //finish()
+    }
+
+    /*fun draw() {
+        when (state) {
+            State.PREGAME -> {
+                solutionList = model.getNextSolution()
+                Log.d("points", "Refreshed game with new solution: $solutionList")
+                // Reset all button states
+                buttonGrid.forEach { it.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button)) }
+
+                // Update only the buttons in the solution path
+                for (i in solutionList) {
+                    val button = buttonGrid[i - 1]  // Adjust for 1-based indexing
+                    when (i) {
+                        solutionList.first() -> button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_start))
+                        solutionList.last() -> button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_end))
+                        else -> button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                    }
+                }
+            }
+
+            State.INGAME -> {
+                val selectedList = model.getSelected()
+
+                // Reset all button states
+                buttonGrid.forEach { it.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button)) }
+
+                // Highlight selected buttons only
+                for (i in selectedList) {
+                    buttonGrid[i - 1].setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                }
+            }
+        }
+    }*/
+
+    fun draw(){
         //If state is pregame
 
-        if(state==State.PREGAME){
-            val solution: ArrayList<Int> = model.getSolution()
+        for (i in 1..42) {
+            val buttonId = "btnRound$i"
+            val resId = resources.getIdentifier(buttonId, "id", packageName)
+            val button = findViewById<AppCompatButton>(resId)
+            button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button))
+        }
 
-            for(i:Int in solution) {
+        if(state==State.PREGAME) {
+            if (solutionList.isEmpty()){
+                solutionList = model.findPathWithMid(1, (2..41).random(), 42)
+            }
+            else{
+                solutionList = model.getNextSolution()
+            }
+
+            Log.d("points", "Queue size: ${model.solutionQueue.size}")
+            Log.d("points", "New game with new solution: $solutionList")
+
+            for(i:Int in solutionList) {
                 val buttonId = "btnRound$i"
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
                 val button = findViewById<AppCompatButton>(resId)
-                if(i == solution.get(0)){
-                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_start))
-                }
-                else if(i == solution.get(solution.lastIndex)){
-                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_end))
-                }
-                else {
-                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                when (i) {
+                    solutionList[0] -> {
+                        button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button_start))
+                    }
+                    solutionList[solutionList.lastIndex] -> {
+                        button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button_end))
+                    }
+                    else -> {
+                        button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button_pressed))
+                    }
                 }
                 }
         }
@@ -85,29 +169,38 @@ class Game : BaseActivity(){
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
                 val button = findViewById<AppCompatButton>(resId)
 
-                if(selectedList.contains(i))
-                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button_pressed))
+                if(selectedList.contains(i)) {
+                    button.setBackgroundDrawable(
+                        AppCompatResources.getDrawable(
+                            this,
+                            R.drawable.round_button_pressed
+                        )
+                    )
+                    Log.d("points", "touched button $button")
+                }
                 else
-                    button.setBackgroundDrawable(resources.getDrawable(R.drawable.round_button))
+                    button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button))
             }
         }
     }
 
-    fun equal(solution: ArrayList<Int>, selected: ArrayList<Int>): Boolean{
+    private fun equal(solution: List<Int>, selected: ArrayList<Int>): Boolean{
         return selected.hashCode() == solution.hashCode()
     }
 
     fun compareList(v: View) {
         val submitButton = findViewById<AppCompatButton>(R.id.button2)
         submitButton.setOnClickListener {
-            val solution = model.getSolution()
+            val solution = solutionList
+            Log.d("points", "solution: $solution")
             val selected = model.getSelected()
-                if (!equal(solution,selected)) {
+            Log.d("points", "selected: $selected")
+                if (!equal(solutionList,selected)) {
                     model.decAttempts()
-                    if(model.attempts == 0){
+                    if(model.getAttempts() == 0){
                         finish()
                     }
-                    val popup = Snackbar.make(v, "${model.attempts} attempts remaining.", 1000)
+                    val popup = Snackbar.make(v, "${model.getAttempts()} attempts remaining.", 1000)
                     popup.show()
                     Log.w("Not in list", "Not in list")
                     Log.w("solution", solution.toString())
@@ -121,6 +214,7 @@ class Game : BaseActivity(){
                     val builder = AlertDialog.Builder(v.context)
                     builder.setMessage("You won")
                         .setPositiveButton("Try again?") { dialog, id ->
+                            selected.clear()
                             refresh(v)
                         }
                     // Create the AlertDialog object and return it.
