@@ -39,14 +39,20 @@ class Game : BaseActivity(){
         layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
 
         val gridLayout: GridLayout= findViewById(R.id.gameGrid)
+
+
+        var currentButton=-1 //no button selected by default
         gridLayout.setOnTouchListener { view, motionEvent ->
             val buttonNo= getChildAtXY(motionEvent.x, motionEvent.y, gridLayout)
+
             if(buttonNo!=-1) {
 
-                Log.d("Found Button", "$buttonNo")
-                model.addPoint(buttonNo)
-                draw()
-
+                if(buttonNo!=currentButton) {
+                    Log.d("Found Button", "$buttonNo")
+                    model.addPoint(buttonNo)
+                    draw()
+                    currentButton=buttonNo;
+                }
             }
 
             true}
@@ -57,14 +63,7 @@ class Game : BaseActivity(){
             val buttonId= "btnRound$i"
             val resId= resources.getIdentifier(buttonId, "id", packageName)
             val button = findViewById<AppCompatButton>(resId)
-            button.setOnClickListener {
-                if(button.isPressed) {
-                   model.addPoint(i)
-                    draw()
-                }
-            }
-
-            button.setOnTouchListener { view, motionEvent -> button.isClickable=false; false }
+            button.isClickable=false
 
         }
 
