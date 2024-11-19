@@ -59,8 +59,7 @@ class MazeModel {
 
             //remove all remaining elements in the list
             while(indexOfi< (selectedList.size)){
-                selectedList.remove(indexOfi)
-                indexOfi++
+                selectedList.removeAt(indexOfi)
 
                 Log.d("MazeModel", "Removing point and proceeding points")
             }
@@ -71,7 +70,7 @@ class MazeModel {
             if(selectedList.isEmpty()){
                 selectedList.add(i)
 
-                val rCurrent: Int=(i-1)/row
+                val rCurrent: Int=(i-1)/col
                 val cCurrent: Int= (i-1)%col
 
                 Log.d("points", "Adding first point ($rCurrent , $cCurrent!)")

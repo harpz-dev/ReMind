@@ -1,12 +1,19 @@
 package ca.mobiledev.remind
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.DragEvent
 import android.view.View
+import android.widget.GridLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.iterator
+import androidx.core.view.size
 import com.google.android.material.snackbar.Snackbar
+import java.util.stream.IntStream.range
 
 
 class Game : BaseActivity(){
@@ -18,6 +25,7 @@ class Game : BaseActivity(){
 
     private lateinit var buttonGrid: List<AppCompatButton>
 
+
     //State machine for the view (PREGAME SHOWING THE SOLUTION VS INGAME SHOWING USER SELECTION
     enum class State{
         PREGAME, INGAME
@@ -25,9 +33,24 @@ class Game : BaseActivity(){
 
     private var state: State= State.PREGAME
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
+
+        val gridLayout: GridLayout= findViewById(R.id.gameGrid)
+        gridLayout.setOnTouchListener { view, motionEvent ->
+            val buttonNo= getChildAtXY(motionEvent.x, motionEvent.y, gridLayout)
+            if(buttonNo!=-1) {
+
+                Log.d("Found Button", "$buttonNo")
+                model.addPoint(buttonNo)
+                draw()
+
+            }
+
+            true}
+
 
         //setting up the onClickListeners for the buttons
         for (i in 1..42){
@@ -41,7 +64,10 @@ class Game : BaseActivity(){
                 }
             }
 
+            button.setOnTouchListener { view, motionEvent -> button.isClickable=false; false }
+
         }
+
         // Initialize the button grid once
         /*buttonGrid = (1..42).map { i ->
             val buttonId = "btnRound$i"
@@ -58,6 +84,8 @@ class Game : BaseActivity(){
 
         //end pregame state: next draw() will make solution disappear
         state= State.INGAME
+
+
     }
 
     //fun onClick(v: View){}
@@ -71,6 +99,19 @@ class Game : BaseActivity(){
 
         }
     }
+
+
+    fun getChildAtXY(x: Float, y: Float, gridLayout: GridLayout): Int {
+        for (i in 0 until gridLayout.childCount) {
+            val view = gridLayout.getChildAt(i)
+            Log.d("GetChild", "MotionEvent x: $x y: $y  button x: ${view.left} ${view.right}  button y: ${view.top} ${view.bottom}")
+            if (x > view.left && x < view.right && y > view.top && y < view.bottom) {
+                return i+1
+            }
+        }
+        return -1
+    }
+
 
     fun refresh(v: View){
         clear(v)
