@@ -43,18 +43,19 @@ class Game : BaseActivity(){
 
         var currentButton=-1 //no button selected by default
         gridLayout.setOnTouchListener { view, motionEvent ->
-            val buttonNo= getChildAtXY(motionEvent.x, motionEvent.y, gridLayout)
+
+            val button = Utils.findChildByPosition(gridLayout, motionEvent.x, motionEvent.y) as AppCompatButton?
+            val buttonNoString= button?.resources?.getResourceName(button.id)?.takeLastWhile { it.isDigit() }
+            val buttonNo= buttonNoString?.toIntOrNull() ?: -1;
 
             if(buttonNo!=-1) {
 
                 if(buttonNo!=currentButton) {
-                    Log.d("Found Button", "$buttonNo")
                     model.addPoint(buttonNo)
                     draw()
                     currentButton=buttonNo;
                 }
             }
-
             true}
 
 
@@ -98,19 +99,6 @@ class Game : BaseActivity(){
 
         }
     }
-
-
-    fun getChildAtXY(x: Float, y: Float, gridLayout: GridLayout): Int {
-        for (i in 0 until gridLayout.childCount) {
-            val view = gridLayout.getChildAt(i)
-            Log.d("GetChild", "MotionEvent x: $x y: $y  button x: ${view.left} ${view.right}  button y: ${view.top} ${view.bottom}")
-            if (x > view.left && x < view.right && y > view.top && y < view.bottom) {
-                return i+1
-            }
-        }
-        return -1
-    }
-
 
     fun refresh(v: View){
         clear(v)
