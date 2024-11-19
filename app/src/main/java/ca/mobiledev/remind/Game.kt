@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.DragEvent
+import android.view.MotionEvent
 import android.view.View
 import android.widget.GridLayout
 import androidx.appcompat.content.res.AppCompatResources
@@ -54,7 +55,9 @@ class Game : BaseActivity(){
                     currentButton=buttonNo;
                 }
             }
-
+            if (motionEvent.action == MotionEvent.ACTION_UP) {
+                currentButton=-1
+            }
             true}
 
 
