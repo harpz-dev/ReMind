@@ -244,7 +244,7 @@ class Game : BaseActivity() {
     inner class LineView(context: Context, private val gridLayout: GridLayout) : View(context) {
         private val paint = Paint().apply {
             color = getColor(R.color.blue)
-            strokeWidth = 10f
+            strokeWidth = 30f
             style = Paint.Style.STROKE
             strokeCap = Paint.Cap.ROUND
             pathEffect = CornerPathEffect(15.0f)
