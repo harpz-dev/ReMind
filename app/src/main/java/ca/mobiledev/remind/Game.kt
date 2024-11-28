@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import androidx.appcompat.content.res.AppCompatResources
@@ -79,9 +80,19 @@ class Game : BaseActivity() {
             button.isClickable = false
         }
 
-        solutionList = model.getSolution()
-        draw()
-        state = State.INGAME
+        gridLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                solutionList = model.getSolution()
+                draw()
+                state = State.INGAME
+                gridLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        })
+
+
+
+
+
     }
 
 
@@ -203,7 +214,10 @@ class Game : BaseActivity() {
                      button.x + button.width / 2 + xOffset,
                      button.y + button.height / 2 + yOffset
                    )
-                Log.d("Drawin Line", "at ${button.x} , ${button.y}")
+
+                val arr= IntArray(2)
+                button.getLocationOnScreen(arr)
+                Log.d("Drawin Line", "at ${arr[0]} , ${arr[1]}")
                 }
             }
             invalidate()
