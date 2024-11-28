@@ -5,7 +5,6 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -38,6 +37,14 @@ open class BaseActivity : AppCompatActivity() {
             when(menuItem.itemId){
                 R.id.nav_home->{
                     //bring the home page to the front
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        Log.e(TAG, "Unable to start the activity")
+                    }
+
                 }
 
                 R.id.nav_settings->{
