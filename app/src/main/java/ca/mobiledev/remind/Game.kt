@@ -1,6 +1,7 @@
 package ca.mobiledev.remind
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -13,25 +14,25 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.GridLayout
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.view.iterator
+import com.google.android.material.snackbar.Snackbar
 
 class Game : BaseActivity() {
 
     private val model: MazeModel = MazeModel()
-    private var solutionList: List<Int> = emptyList()
-    private lateinit var buttonGrid: List<AppCompatButton>
     private lateinit var lineView: LineView
     private lateinit var gridLayout: GridLayout
 
     private lateinit var refreshButton: AppCompatButton
     private lateinit var submitButton: AppCompatButton
 
-    enum class State {
-        PREGAME, INGAME
-    }
+    private lateinit var levels: TextView
 
+    enum class State {
+        PREGAME, INGAME , ENDGAME
+    }
     private var state: State = State.PREGAME
 
     @SuppressLint("ClickableViewAccessibility")
@@ -47,16 +48,19 @@ class Game : BaseActivity() {
         refreshButton = findViewById(R.id.buttonRefresh)
         submitButton = findViewById(R.id.buttonSubmit)
 
+        submitButton.setOnClickListener{
+            submit()
+        }
+
         refreshButton.setOnClickListener{
             refresh()
         }
 
-        submitButton.setOnClickListener{
-            //handle submit
-        }
+        levels = findViewById(R.id.level)
+
 
         var currentButton = -1
-        gridLayout.setOnTouchListener { view, motionEvent ->
+        gridLayout.setOnTouchListener { _, motionEvent ->
             val buttonNo = getChildAtXY(motionEvent.x, motionEvent.y, gridLayout)
 
             if (buttonNo != -1) {
@@ -82,19 +86,13 @@ class Game : BaseActivity() {
 
         gridLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                solutionList = model.getSolution()
+                //solutionList = model.getSolution()
                 draw()
                 state = State.INGAME
                 gridLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
             }
         })
-
-
-
-
-
     }
-
 
     private fun clear() {
         for (i in 1..42) {
@@ -116,26 +114,59 @@ class Game : BaseActivity() {
         return -1
     }
 
-    fun refresh() {
-        clear()
-        Log.d("points", "Refreshed game")
+    private fun restart(){
         state = State.PREGAME
-        Log.d("SolutionSize", "$solutionList")
+        model.restart()
+        //model.getSolution()
         draw()
         state = State.INGAME
     }
 
+    private fun refresh() {
+        clear()
+        Log.d("points", "Refreshed game")
+        state = State.PREGAME
+        if(model.attemptsLeft()){
+            model.getNewPath()
+            draw()
+            state = State.INGAME
+        }
+        else{
+            state = State.ENDGAME
+            draw()
+        }
+
+    }
+
     fun draw() {
         clear() //clears buttons
+        val string = "Level: ${model.getLevel()}"
+        levels.text = string
+        if(state == State.ENDGAME){
+            val builder = AlertDialog.Builder(submitButton.context)
+            builder.setMessage("You reached level ${model.getLevel()}")
+                .setPositiveButton("Try Again?") { _, _ ->
+                    // START THE GAME!
+                    restart()
+                }
+                .setNegativeButton("Quit") { _, _ ->
+                    // User cancelled the dialog.
+                    finish()
+                }
+            // Create the AlertDialog object and return it.
+            builder.create()
+            builder.show()
+        }
         if (state == State.PREGAME) {
-            Log.d("points", "New game with new solution: $solutionList")
-            for (i: Int in solutionList) {
+            Log.d("points", "New game with new solution: ${model.getSolution()}")
+            for (i: Int in model.getSolution()) {
                 val buttonId = "btnRound$i"
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
+
                 val button = findViewById<AppCompatButton>(resId)
                 try {
                     when (i) {
-                        solutionList[0] -> {
+                        model.getSolution()[0] -> {
                             button.setBackgroundDrawable(
                                 AppCompatResources.getDrawable(
                                     this,
@@ -143,7 +174,7 @@ class Game : BaseActivity() {
                                 )
                             )
                         }
-                        solutionList[solutionList.lastIndex] -> {
+                        model.getSolution()[model.getSolution().lastIndex] -> {
                             button.setBackgroundDrawable(
                                 AppCompatResources.getDrawable(
                                     this,
@@ -164,7 +195,8 @@ class Game : BaseActivity() {
                     Log.e("NullOfWhat", "$i")
                 }
             }
-            lineView.setPath(solutionList)
+            lineView.setPath(model.getSolution())
+            Log.d("Drawin Line", "Drew solution list")
         } else if (state == State.INGAME) {
             val selectedList: ArrayList<Int> = model.getSelected()
             for (i: Int in 1..42) {
@@ -184,6 +216,22 @@ class Game : BaseActivity() {
                 }
             }
             lineView.setPath(selectedList)
+            Log.d("Drawin Line", "Drew selected list")
+        }
+    }
+
+    private fun submit() {
+        if(!model.compare()){
+            val popup = Snackbar.make(submitButton,"Try Again", 1000)
+            popup.show()
+            Log.w("Not in list", "Not in list")
+            model.decAttempts()
+            refresh()
+        }
+        else{
+            Log.w("All good", "All good")
+            model.incLevel()
+            refresh()
         }
     }
 
@@ -197,7 +245,6 @@ class Game : BaseActivity() {
 
         fun setPath(buttonList: List<Int>) {
             path.reset()
-            val location = IntArray(2)
             val xOffset = gridLayout.x
             val yOffset = gridLayout.y
 
@@ -232,5 +279,7 @@ class Game : BaseActivity() {
             super.onDraw(canvas)
             canvas.drawPath(path, paint)
         }
+
+
     }
 }
