@@ -1,34 +1,14 @@
 package ca.mobiledev.remind
 
-import android.os.Handler
-import android.os.Looper
+
 import android.util.Log
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeoutOrNull
-import java.time.Instant
 import java.util.Collections
-import java.util.PriorityQueue
-import kotlin.math.abs
-import java.util.ArrayDeque
-import java.util.Date
-import kotlin.random.Random
-import kotlin.time.times
 
 class MazeModel {
 
     //6x7 grid
     private val row = 7
     private val col = 6
-
-    private val timeoutMillis = 20L
-
-    private val mainHandler = Handler(Looper.getMainLooper())
-
-
-    private val queueSize = 5 // Ensure at least two paths in the queue
 
     private var solutionList: ArrayList<Int> = ArrayList()
     private var selectedList: ArrayList<Int> = ArrayList()
@@ -37,6 +17,18 @@ class MazeModel {
 
     private var attempts = 3
 
+    private var level = 1
+
+    fun getLevel(): Int{
+        return level
+    }
+    fun incLevel(){
+        level++
+    }
+
+    fun clearSelected() {
+        selectedList = ArrayList<Int>()
+    }
 
     fun getSolution():ArrayList<Int>{
         return ArrayList(Collections.unmodifiableList(solutionList))
@@ -45,8 +37,20 @@ class MazeModel {
         return ArrayList(Collections.unmodifiableList(selectedList))
     }
 
-    fun getAttempts(): Int{
-        return attempts
+    fun compare() : Boolean {
+        Log.d("Compare", "solution: $solutionList")
+        Log.d("Compare", "selected: $selectedList")
+        return getSelected().hashCode() == getSolution().hashCode()
+    }
+
+    fun restart(){
+        attempts = 3
+        level = 1
+        solutionList = generatePath()
+    }
+
+    fun attemptsLeft() : Boolean {
+        return attempts != 0
     }
 
     fun decAttempts(){
@@ -55,7 +59,7 @@ class MazeModel {
 
     fun addPoint(i: Int) {
 
-        var indexOfi = selectedList.indexOf(i)
+        val indexOfi = selectedList.indexOf(i)
 
         if(indexOfi!=-1){ //if i is already in the list
 
@@ -108,7 +112,11 @@ class MazeModel {
     }
 
     ////////////////////////////////////////////////////////
-    private fun generatePath(gridWidth: Int = col, gridHeight: Int = row, maxPathLength: Int = 10): ArrayList<Int> {
+    private fun generatePath(): ArrayList<Int> {
+        val maxPathLength = 5 + level/2
+        val gridWidth = col
+        val gridHeight = row
+
         val gridSize = gridWidth * gridHeight
         val visited = mutableSetOf<Int>()
         val path = ArrayList<Int>()
@@ -138,12 +146,12 @@ class MazeModel {
         )
 
         // Start from the first button
-        var currentCell = 1
+        var currentCell = (1..42).random()
         path.add(currentCell)
         visited.add(currentCell)
 
         // Generate the path
-        while (path.size < maxPathLength && currentCell != gridSize) {
+        while (path.size < maxPathLength ){//&& currentCell != gridSize) {
             val validDirections = directions.mapNotNull { getNeighbor(currentCell, it) }
             if (validDirections.isEmpty()) break // No valid moves left
             currentCell = validDirections.random()
@@ -154,13 +162,12 @@ class MazeModel {
         return path
     }
 
-    init {
-
-        //solutionList= arrayListOf(1, 2, 3, 4, 5)
-        solutionList= generatePath()
-
+    fun getNewPath(){
+        solutionList = generatePath()
     }
 
-
-
+    init {
+        //solutionList= arrayListOf(1, 2, 3, 4, 5)
+        solutionList= generatePath()
+    }
 }

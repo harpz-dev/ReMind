@@ -25,8 +25,6 @@ open class BaseActivity : AppCompatActivity() {
         toolbar.setBackgroundColor(resources.getColor(R.color.blue))
         setSupportActionBar(toolbar)
 
-
-
         drawerLayout = findViewById(R.id.drawer_layout)
 
         val navView: NavigationView = findViewById(R.id.navView)
