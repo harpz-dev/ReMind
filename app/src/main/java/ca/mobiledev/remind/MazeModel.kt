@@ -26,6 +26,9 @@ class MazeModel {
         level++
     }
 
+    fun clearSelected() {
+        selectedList = ArrayList<Int>()
+    }
 
     fun getSolution():ArrayList<Int>{
         return ArrayList(Collections.unmodifiableList(solutionList))

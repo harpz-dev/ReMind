@@ -124,6 +124,7 @@ class Game : BaseActivity() {
 
     private fun refresh() {
         clear()
+        model.clearSelected()
         Log.d("points", "Refreshed game")
         state = State.PREGAME
         if(model.attemptsLeft()){
