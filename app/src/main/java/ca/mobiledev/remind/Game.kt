@@ -1,10 +1,11 @@
 package ca.mobiledev.remind
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
 import android.os.Bundle
@@ -146,6 +147,7 @@ class Game : BaseActivity() {
         if(state == State.ENDGAME){
             val builder = AlertDialog.Builder(submitButton.context)
             builder.setMessage("You reached level ${model.getLevel()}")
+
                 .setPositiveButton("Try Again?") { _, _ ->
                     // START THE GAME!
                     restart()
@@ -157,6 +159,9 @@ class Game : BaseActivity() {
             // Create the AlertDialog object and return it.
             builder.create()
             builder.show()
+
+
+
         }
         if (state == State.PREGAME) {
             Log.d("points", "New game with new solution: ${model.getSolution()}")
@@ -238,10 +243,13 @@ class Game : BaseActivity() {
 
     inner class LineView(context: Context, private val gridLayout: GridLayout) : View(context) {
         private val paint = Paint().apply {
-            color = Color.RED
+            color = getColor(R.color.blue)
             strokeWidth = 10f
             style = Paint.Style.STROKE
+            strokeCap = Paint.Cap.ROUND
+            pathEffect = CornerPathEffect(15.0f)
         }
+
         private val path = Path()
 
         fun setPath(buttonList: List<Int>) {

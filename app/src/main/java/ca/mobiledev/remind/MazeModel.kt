@@ -146,12 +146,12 @@ class MazeModel {
         )
 
         // Start from the first button
-        var currentCell = 1
+        var currentCell = (1..42).random()
         path.add(currentCell)
         visited.add(currentCell)
 
         // Generate the path
-        while (path.size < maxPathLength && currentCell != gridSize) {
+        while (path.size < maxPathLength ){//&& currentCell != gridSize) {
             val validDirections = directions.mapNotNull { getNeighbor(currentCell, it) }
             if (validDirections.isEmpty()) break // No valid moves left
             currentCell = validDirections.random()
