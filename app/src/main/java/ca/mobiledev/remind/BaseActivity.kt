@@ -48,6 +48,12 @@ open class BaseActivity : AppCompatActivity() {
 
                 R.id.nav_history->{
                     //start score activity
+                    val intent = Intent(applicationContext, ScoreHistory::class.java)
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        Log.e(TAG, "Unable to start the activity")
+                    }
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
