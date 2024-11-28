@@ -30,8 +30,4 @@ class MainActivity : BaseActivity() {
         }
         }
 
-
-
-    //val startButton = findViewById<Button>(R.id.btnRound)
-
     }
