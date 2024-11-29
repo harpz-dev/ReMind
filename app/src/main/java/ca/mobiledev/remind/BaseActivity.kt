@@ -22,6 +22,7 @@ open class BaseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_base)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         toolbar.setTitle(R.string.app_name)
+        toolbar.setBackgroundColor(resources.getColor(R.color.blue))
         setSupportActionBar(toolbar)
 
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -32,15 +33,6 @@ open class BaseActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        val startButton = findViewById<Button>(R.id.btnStart)
-        startButton.setOnClickListener {
-            val intent = Intent(applicationContext, Game::class.java)
-            try {
-                startActivity(intent)
-            } catch (ex: ActivityNotFoundException) {
-                Log.e(TAG, "Unable to start the activity")
-            }
-        }
 
         navView.setNavigationItemSelectedListener { menuItem->
             when(menuItem.itemId){
@@ -54,6 +46,12 @@ open class BaseActivity : AppCompatActivity() {
 
                 R.id.nav_history->{
                     //start score activity
+                    val intent = Intent(applicationContext, ScoreHistory::class.java)
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        Log.e(TAG, "Unable to start the activity")
+                    }
                 }
             }
             drawerLayout.closeDrawer(GravityCompat.START)
