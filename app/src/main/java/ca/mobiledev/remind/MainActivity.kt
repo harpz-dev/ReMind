@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,9 +18,9 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
           layoutInflater.inflate(R.layout.activity_main, findViewById(R.id.content_frame))
 
-        val startButton = findViewById<Button>(R.id.btnStart)
+        val startButton = findViewById<ImageButton>(R.id.btnStart)
         startButton.setBackgroundColor(resources.getColor(R.color.blue))
-        startButton.setTextColor(resources.getColor(R.color.white))
+        //startButton.setTextColor(resources.getColor(R.color.white))
         startButton.setOnClickListener {
             val intent = Intent(applicationContext, Game::class.java)
             try {

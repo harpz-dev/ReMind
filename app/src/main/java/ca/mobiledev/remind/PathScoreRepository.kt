@@ -13,6 +13,10 @@ class PathScoreRepository(application: Application) {
     //   The insert operation will use the Runnable interface as there are no return values
     val allItems: LiveData<List<PathScore>> = pathScoreDao!!.getAllPathScores()
 
+    val topFive: LiveData<List<PathScore>> = pathScoreDao!!.getTopFive()
+
+    val highScore: LiveData<Int> = pathScoreDao!!.getHighestScore()
+
     fun insertRecord(item: PathScore) {
 
         val newItem = PathScore(0, item.dateTime, item.score, item.timeTaken)
@@ -25,6 +29,7 @@ class PathScoreRepository(application: Application) {
         PathScoreDatabase.databaseWriterExecutor.execute { pathScoreDao!!.insertPathScore(item) }
     }
 
-
-
+    /*fun getHighScore() :LiveData<Int> {
+        return highScore
+    }*/
 }

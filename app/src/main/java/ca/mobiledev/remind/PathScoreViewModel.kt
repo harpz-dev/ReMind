@@ -12,6 +12,8 @@ import java.sql.Time
 class PathScoreViewModel(application: Application) : AndroidViewModel(application) {
     private val pathScoreRepository: PathScoreRepository = PathScoreRepository(application)
 
+    //val highScore: LiveData<Int> = pathScoreRepository.getHighScore()
+
     // TODO
     //  Add mapping calls between the UI and Database
 
@@ -23,6 +25,14 @@ class PathScoreViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun listAll(): LiveData<List<PathScore>>{
         return pathScoreRepository.allItems
+    }
+
+    fun getTopFive(): LiveData<List<PathScore>>{
+        return pathScoreRepository.topFive
+    }
+
+    fun getHighScore(): LiveData<Int> {
+        return pathScoreRepository.highScore
     }
 
 }

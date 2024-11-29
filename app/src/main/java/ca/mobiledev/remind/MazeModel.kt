@@ -1,7 +1,14 @@
 package ca.mobiledev.remind
 
 
+import android.content.Context
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.color.utilities.Score
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Collections
 
 class MazeModel {
@@ -18,6 +25,8 @@ class MazeModel {
     private var attempts = 3
 
     private var level = 1
+
+    private var highscore: Int = 0
 
     fun getLevel(): Int{
         return level
@@ -37,6 +46,28 @@ class MazeModel {
         return ArrayList(Collections.unmodifiableList(selectedList))
     }
 
+    fun getHighScore(context: Context, onHighScoreRetrieved: (Int?) -> Unit) {
+        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+
+        // Observe the LiveData to get the highest score asynchronously
+        itemViewModel.getHighScore().observe(context as AppCompatActivity, Observer { highScore ->
+            // Pass the value of highScore to the callback
+            onHighScoreRetrieved(highScore)
+        })
+    }
+
+    fun isNewHighScore(context: Context) : Boolean{
+        var bool = false
+        getHighScore(context) { highScore ->
+            val currentScore = getLevel() // Assuming level represents score
+            // Check if the current score is higher than the existing high score
+            if (highScore != null && currentScore > highScore) {
+                bool = true
+            }
+        }
+        return bool
+    }
+
     fun compare() : Boolean {
         Log.d("Compare", "solution: $solutionList")
         Log.d("Compare", "selected: $selectedList")
@@ -51,6 +82,10 @@ class MazeModel {
 
     fun attemptsLeft() : Boolean {
         return attempts != 0
+    }
+
+    fun getAttempts() : Int {
+        return attempts
     }
 
     fun decAttempts(){
@@ -164,6 +199,15 @@ class MazeModel {
 
     fun getNewPath(){
         solutionList = generatePath()
+    }
+
+    fun saveScore(context: Context){
+
+        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val current = LocalDateTime.now().format(formatter)
+        itemViewModel.insert(current, level, 20)
     }
 
     init {
