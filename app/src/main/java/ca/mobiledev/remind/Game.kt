@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
@@ -57,7 +56,7 @@ class Game : BaseActivity() {
         lineView = LineView(this, gridLayout)
         frameLayout.addView(lineView)
 
-        refreshButton = findViewById(R.id.buttonRefresh)
+        //refreshButton = findViewById(R.id.buttonRefresh)
         //refreshButton.visibility(View.GONE)
         submitButton = findViewById(R.id.buttonSubmit)
 
@@ -65,9 +64,9 @@ class Game : BaseActivity() {
             submit()
         }
 
-        refreshButton.setOnClickListener{
+        /*refreshButton.setOnClickListener{
             refresh()
-        }
+        }*/
 
         levels = findViewById(R.id.level)
         attempts = findViewById(R.id.attempts)
@@ -182,12 +181,22 @@ class Game : BaseActivity() {
 
     fun draw() {
         clear() //clears buttons
-        val string = "Level: ${model.getLevel()}"
-        val string2 = "Attempts: ${model.getAttempts()}"
+        val bool = model.isNewHighScore(this)
+        var string = "Level: ${model.getLevel()}"
+        if(bool){
+            string = "Level: ${model.getLevel()}${getString(R.string.championCup)}"
+        }
+
+        var string2 = "Attempts: ${model.getAttempts()}"
+        if(model.getStreak()>4){
+            string2 = "Attempts: ${model.getAttempts()}${getString(R.string.flames)}"
+        }
+
+
         val resultMessage = buildHighScore()
         levels.text = string
         attempts.text = string2
-        val bool = model.isNewHighScore(this)
+
         if(state == State.ENDGAME){
             model.saveScore(this)
             // Retrieve the current high score
@@ -237,8 +246,6 @@ class Game : BaseActivity() {
 
             builder.setCancelable(false)
             builder.create().show()
-
-
         }
         if (state == State.PREGAME) {
             Log.d("points", "New game with new solution: ${model.getSolution()}")
@@ -311,6 +318,7 @@ class Game : BaseActivity() {
         else{
             Log.w("All good", "All good")
             model.incLevel()
+            model.incStreak()
             refresh()
         }
     }
@@ -338,7 +346,8 @@ class Game : BaseActivity() {
                  firstButton.x + firstButton.width / 2 + xOffset,
                  firstButton.y + firstButton.height / 2 + yOffset
             )
-            for (i in 1 until buttonList.size) {
+                //this fixed the paint in the corner??
+            for (i in 0 until buttonList.size) {
                 val button = gridLayout.getChildAt(buttonList[i] - 1)
                 path.lineTo(
                      button.x + button.width / 2 + xOffset,
@@ -347,7 +356,9 @@ class Game : BaseActivity() {
 
                 val arr= IntArray(2)
                 button.getLocationOnScreen(arr)
+
                 Log.d("Drawin Line", "at ${arr[0]} , ${arr[1]}")
+                Log.d("Drawing Line", "Button ${buttonList[i]} ")
                 }
             }
             invalidate()
@@ -360,7 +371,12 @@ class Game : BaseActivity() {
 
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
-            canvas.drawPath(path, paint)
+            Log.d("Drawin Line", "${path}")
+            Log.d("Drawin Line", "$paint")
+            if(!path.isEmpty){
+                canvas.drawPath(path, paint)
+            }
+
         }
     }
 }

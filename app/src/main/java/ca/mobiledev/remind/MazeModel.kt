@@ -24,15 +24,23 @@ class MazeModel {
 
     private var attempts = 3
 
-    private var level = 1
+    private var streak = 0
 
-    private var highscore: Int = 0
+    private var level = 1
 
     fun getLevel(): Int{
         return level
     }
     fun incLevel(){
         level++
+    }
+
+    fun getStreak(): Int{
+        return streak
+    }
+
+    fun incStreak(){
+        streak++
     }
 
     fun clearSelected() {
@@ -90,6 +98,7 @@ class MazeModel {
 
     fun decAttempts(){
         attempts -= 1
+        streak = 0
     }
 
     fun addPoint(i: Int) {
