@@ -8,8 +8,6 @@ import androidx.core.view.WindowInsetsCompat
 
 class ScoreHistoryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
         layoutInflater.inflate(R.layout.activity_score_history, findViewById(R.id.content_frame))
-
     }
 }
