@@ -24,11 +24,11 @@ Technical features include:
 Players observe a visually displayed path on the grid:
 - **Start Point**: Highlighted in green.
 - **End Point**: Marked in red.
-- **Path**: Drawn in blue to indicate the correct sequence.
+- **Path**: Drawn in blue to indicate the sequence.
 
 ### Reproduction Phase:
 - Players use touch and drag gestures to recreate the displayed path.
-- Nodes connected correctly will turn blue.
+- Selected nodes will turn Blue
 - Movement is valid in all 8 directions (horizontal, vertical, and diagonal).
 
 ### Scoring:
@@ -80,3 +80,11 @@ PathScore Entity:
 - ViewBinding
 - Coroutines
 
+## Future Enhancements:
+- Additional Mini-games
+- Difficulty modes
+- Enhanced scoring system
+- Multiplayer support
+
+## Contributions
+- Contributions are welcome! Please feel free to submit pull requests
