@@ -125,7 +125,6 @@ class Game : BaseActivity() {
         }
 
         if(model.attemptsLeft()){
-            model.updateSolution()
             draw()
             state = State.INGAME
         }

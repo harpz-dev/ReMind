@@ -14,20 +14,28 @@ class ScoreViewModel(application: Application) : AndroidViewModel(application) {
 
     fun insert(dateTime:String, score:Int, gameId: String){
 
-        scoreRepository.insertRecord(PathScore(0,dateTime, score, gameId))
+        scoreRepository.insertRecord(Score(0,dateTime, score, gameId))
 
     }
 
-    fun listAll(): LiveData<List<PathScore>>{
+    fun listAll(): LiveData<List<Score>>{
         return scoreRepository.allPathScores
     }
 
-    fun getTopFive(): LiveData<List<PathScore>>{
+    fun getTopFivePathScores(): LiveData<List<Score>>{
         return scoreRepository.topFivePathScores
     }
 
-    fun getHighScore(): LiveData<Int> {
+    fun getPathHighScore(): LiveData<Int> {
         return scoreRepository.pathHighScore
+    }
+
+    fun getTopFiveChimpScores(): LiveData<List<Score>>{
+        return scoreRepository.topFiveChimpScores
+    }
+
+    fun getChimpHighScore(): LiveData<Int> {
+        return scoreRepository.chimpHighScore
     }
 
 }

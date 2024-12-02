@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import ca.mobiledev.remind.R
 
-class ScoreAdapter(context: Context, items: List<PathScore>) : ArrayAdapter<PathScore>( context, 0, items){
+class ScoreAdapter(context: Context, items: List<Score>) : ArrayAdapter<Score>( context, 0, items){
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get the data item for this position

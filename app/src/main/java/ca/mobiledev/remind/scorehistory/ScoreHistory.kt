@@ -28,7 +28,7 @@ class ScoreHistory : BaseActivity() {
 
         itemViewModel = ViewModelProvider(this)[ScoreViewModel::class.java]
 
-        itemViewModel.getTopFive().observe(this, Observer{ items->
+        itemViewModel.getTopFivePathScores().observe(this, Observer{ items->
             var adapter =
                 ScoreAdapter(this, items)
             listView.adapter=adapter

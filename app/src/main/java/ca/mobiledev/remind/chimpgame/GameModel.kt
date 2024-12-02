@@ -32,6 +32,7 @@ class GameModel {
     }
     fun incLevel(){
         level++
+        updateSolution()
     }
 
     fun getStreak(): Int{
@@ -57,7 +58,7 @@ class GameModel {
         val itemViewModel = ViewModelProvider(context as AppCompatActivity)[ScoreViewModel::class.java]
 
         // Observe the LiveData to get the highest score asynchronously
-        itemViewModel.getHighScore().observe(context) { highScore ->
+        itemViewModel.getChimpHighScore().observe(context) { highScore ->
             // Pass the value of highScore to the callback
             onHighScoreRetrieved(highScore)
         }
