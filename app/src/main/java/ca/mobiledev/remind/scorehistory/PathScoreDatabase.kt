@@ -1,4 +1,4 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.scorehistory
 
 import android.content.Context
 import androidx.room.Database

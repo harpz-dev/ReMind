@@ -15,7 +15,8 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="game_activity">Game</string>
+    <string name="pathways_game_activity">PathwaysGame</string>
+    <string name="chimp_game_activity">ChimpGame</string>
     <string name="minigame">Minigames</string>
     <string name="pathways">Pathways</string>
     <string name="submit">Submit</string>

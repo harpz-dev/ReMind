@@ -1,10 +1,11 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.pathwaysgame
 
 
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import ca.mobiledev.remind.scorehistory.ScoreViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Collections
@@ -53,7 +54,7 @@ class MazeModel {
     }
 
     fun getHighScore(context: Context, onHighScoreRetrieved: (Int?) -> Unit) {
-        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[ScoreViewModel::class.java]
 
         // Observe the LiveData to get the highest score asynchronously
         itemViewModel.getHighScore().observe(context) { highScore ->
@@ -209,11 +210,11 @@ class MazeModel {
 
     fun saveScore(context: Context){
 
-        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[ScoreViewModel::class.java]
 
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val current = LocalDateTime.now().format(formatter)
-        itemViewModel.insert(current, level, 20)
+        itemViewModel.insert(current, level, "PathwaysGame")
     }
 
     init {

@@ -1,4 +1,4 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.pathwaysgame
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AlertDialog
@@ -18,12 +18,10 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.TextView
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
+import ca.mobiledev.remind.abstractclasses.BaseActivity
+import ca.mobiledev.remind.R
 import com.google.android.material.snackbar.Snackbar
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
@@ -53,7 +51,7 @@ class Game : BaseActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutInflater.inflate(R.layout.activity_game, findViewById(R.id.content_frame))
+        layoutInflater.inflate(R.layout.activity_pathwaysgame, findViewById(R.id.content_frame))
         val frameLayout = findViewById<FrameLayout>(R.id.frameLayout)
 
         gridLayout = findViewById(R.id.gameGrid)
@@ -123,7 +121,9 @@ class Game : BaseActivity() {
             val buttonId = "btnRound$i"
             val resId = resources.getIdentifier(buttonId, "id", packageName)
             val button = findViewById<AppCompatButton>(resId)
-            button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button))
+            button.setBackgroundDrawable(AppCompatResources.getDrawable(this,
+                R.drawable.round_button
+            ))
             button.clearAnimation()
         }
         lineView.clearPaths()
@@ -266,7 +266,9 @@ class Game : BaseActivity() {
                                     R.drawable.round_button_pressed
                                 )
                             )
-                            val pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_animation)
+                            val pulseAnimation = AnimationUtils.loadAnimation(this,
+                                R.anim.pulse_animation
+                            )
                             button.startAnimation(pulseAnimation)
                         }
                         else -> {
@@ -301,7 +303,9 @@ class Game : BaseActivity() {
                     )
                     Log.d("points", "touched button $button")
                 } else {
-                    button.setBackgroundDrawable(AppCompatResources.getDrawable(this, R.drawable.round_button))
+                    button.setBackgroundDrawable(AppCompatResources.getDrawable(this,
+                        R.drawable.round_button
+                    ))
                 }
             }
             lineView.setPath(selectedList)

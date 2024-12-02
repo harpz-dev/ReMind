@@ -1,16 +1,19 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.scorehistory
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.ListView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import ca.mobiledev.remind.abstractclasses.BaseActivity
+import ca.mobiledev.remind.R
+import ca.mobiledev.remind.pathwaysgame.MazeModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ScoreHistory : BaseActivity() {
 
-    private lateinit var itemViewModel: PathScoreViewModel
+    private lateinit var itemViewModel: ScoreViewModel
     private lateinit var listView: ListView
 
 
@@ -23,11 +26,11 @@ class ScoreHistory : BaseActivity() {
         listView= findViewById(R.id.listview)
 
 
-        itemViewModel = ViewModelProvider(this)[PathScoreViewModel::class.java]
+        itemViewModel = ViewModelProvider(this)[ScoreViewModel::class.java]
 
         itemViewModel.getTopFive().observe(this, Observer{ items->
             var adapter =
-                PathScoreAdapter(this, items)
+                ScoreAdapter(this, items)
             listView.adapter=adapter
         })
 

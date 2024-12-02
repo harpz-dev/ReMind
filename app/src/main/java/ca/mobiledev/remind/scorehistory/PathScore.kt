@@ -1,4 +1,4 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.scorehistory
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -8,5 +8,5 @@ data class PathScore(
     @PrimaryKey(autoGenerate = true) val attemptNo: Int = 0,
     val dateTime: String, // Store as ISO 8601 string or timestamp
     val score: Int,
-    val timeTaken: Long // Store in milliseconds
+    val gameID: String // Score by game
 )
