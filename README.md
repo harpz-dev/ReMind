@@ -8,7 +8,7 @@ ReMind offers a dynamic and engaging experience with:
 - **Interactive Grid Gameplay**: A 6x7 grid of touch-sensitive nodes.
 - **Memory-Based Challenge**: Observe and reproduce patterns, starting with 5 nodes and increasing in complexity every two levels.
 - **Score Tracking**: Historical records of gameplay performance, displayed in a score history log.
-- **Real-Time Feedback**: Animations for path tracing and color-coded feedback to help players track progress.
+- **Real-Time Feedback**: Animations for path tracing and lines drawn as nodes are selected to show path taken.
 - **Adaptive Difficulty**: Three attempts per level with dynamic path complexity as levels increase.
 
 Technical features include:
@@ -22,8 +22,8 @@ Technical features include:
 
 ### Observation Phase:
 Players observe a visually displayed path on the grid:
-- **Start Point**: Highlighted in green.
-- **End Point**: Marked in red.
+- **Start Point**: Highlighted by a Pulsating blue node
+- **End Point**: Marked by where the sequence ends.
 - **Path**: Drawn in blue to indicate the sequence.
 
 ### Reproduction Phase:
@@ -38,15 +38,18 @@ Players observe a visually displayed path on the grid:
 ## Screenshots
 
 1. **Gameplay**:  
- ![image](https://github.com/user-attachments/assets/160a97fe-60e8-4292-ba7d-548f558fe87d)
+![image](https://github.com/user-attachments/assets/e0490e61-bcea-4f58-a18e-5f85c243764b)
+
 
 
 2. **Main Menu**:  
-   ![image](https://github.com/user-attachments/assets/e3246126-84f1-46c5-8cba-a209cc614bd1)
+  ![image](https://github.com/user-attachments/assets/1a52dfe5-d949-4392-913f-6c193c4162b9)
+
 
 
 3. **Score History**:  
- ![image](https://github.com/user-attachments/assets/fef306bd-1515-4eb3-a399-23a48e98084c)
+
+![image](https://github.com/user-attachments/assets/f28523f8-fb80-4a24-9ffa-42c0f6d7eb37)
 
 
 ## Technical Details
@@ -56,9 +59,8 @@ The game’s implementation includes:
 - **Dynamic Path Generation**: Randomized paths are generated with increasing length based on the level, ensuring unique and challenging gameplay.
 - **UI Components**: Custom button designs with color-coded states:
   - Grey: Default/unselected nodes.
-  - Green: Start node.
-  - Red: End node.
   - Blue: Active path nodes.
+  - Pulsating Blue node: Indicates the start point of the sequence
  
 ## Database Schema
 PathScore Entity:
