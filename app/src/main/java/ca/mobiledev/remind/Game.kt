@@ -8,13 +8,10 @@ import android.graphics.Color
 import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.Layout.Alignment
 import android.util.Log
-import android.view.Gravity
 import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
@@ -24,7 +21,6 @@ import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.snackbar.Snackbar
@@ -170,7 +166,7 @@ class Game : BaseActivity() {
             return message
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
+
     fun draw() {
         clear()
         val bool = model.isNewHighScore(this)
@@ -297,7 +293,6 @@ class Game : BaseActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
     private fun submit() {
         val view = findViewById<LinearLayout>(R.id.game)
         if(!model.compare()){
