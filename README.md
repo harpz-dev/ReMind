@@ -76,7 +76,7 @@ PathScore Entity:
 
 ## Development
 - **Key Dependancies**:
-- - AndroidX Core KTX
+- AndroidX Core KTX
 - Room Database (v2.6.1)
 - Material Design Components
 - ViewBinding
