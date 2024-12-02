@@ -28,8 +28,4 @@ class PathScoreRepository(application: Application) {
         // Using a Runnable thread object as there are no return values
         PathScoreDatabase.databaseWriterExecutor.execute { pathScoreDao!!.insertPathScore(item) }
     }
-
-    /*fun getHighScore() :LiveData<Int> {
-        return highScore
-    }*/
 }

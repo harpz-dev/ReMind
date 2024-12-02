@@ -18,8 +18,12 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
@@ -33,7 +37,7 @@ class Game : BaseActivity() {
     private lateinit var lineView: LineView
     private lateinit var gridLayout: GridLayout
 
-    private lateinit var refreshButton: AppCompatButton
+    //private lateinit var refreshButton: AppCompatButton
     private lateinit var submitButton: AppCompatButton
 
     private lateinit var levels: TextView
@@ -71,7 +75,11 @@ class Game : BaseActivity() {
         levels = findViewById(R.id.level)
         attempts = findViewById(R.id.attempts)
 
-        konfettiView = findViewById<KonfettiView>(R.id.konfettiView)
+        konfettiView = findViewById(R.id.konfettiView)
+
+        var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
 
         //levels.se
 
@@ -167,7 +175,7 @@ class Game : BaseActivity() {
                 "You reached level $currentScore\nThe highest score is: ${highScore ?: "N/A"}"
 
             // Check if the current score is higher than the existing high score
-            if (highScore == null || highScore != null && currentScore > highScore) {
+            if (highScore == null ||  currentScore > highScore) {
 
                 // New high score! Update the message
                 //model.updateHighScore(currentScore) // Assuming method updates high score in the DB
@@ -199,9 +207,6 @@ class Game : BaseActivity() {
 
         if(state == State.ENDGAME){
             model.saveScore(this)
-            // Retrieve the current high score
-
-
                 // Create the AlertDialog to show the message
                 val builder = AlertDialog.Builder(submitButton.context)
                 builder.setMessage(resultMessage)
@@ -214,7 +219,7 @@ class Game : BaseActivity() {
                         finish()
                     }
 
-                // Create and show the AlertDialog once
+
             var party = Party(
                 speed = 0f,
                 maxSpeed = 20f,
@@ -347,7 +352,7 @@ class Game : BaseActivity() {
                  firstButton.y + firstButton.height / 2 + yOffset
             )
                 //this fixed the paint in the corner??
-            for (i in 0 until buttonList.size) {
+            for (i in buttonList.indices) {
                 val button = gridLayout.getChildAt(buttonList[i] - 1)
                 path.lineTo(
                      button.x + button.width / 2 + xOffset,
@@ -371,12 +376,7 @@ class Game : BaseActivity() {
 
         override fun onDraw(canvas: Canvas) {
             super.onDraw(canvas)
-            Log.d("Drawin Line", "${path}")
-            Log.d("Drawin Line", "$paint")
-            if(!path.isEmpty){
-                canvas.drawPath(path, paint)
-            }
-
+            canvas.drawPath(path, paint)
         }
     }
 }

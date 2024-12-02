@@ -4,9 +4,7 @@ package ca.mobiledev.remind
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.color.utilities.Score
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Collections
@@ -44,7 +42,7 @@ class MazeModel {
     }
 
     fun clearSelected() {
-        selectedList = ArrayList<Int>()
+        selectedList = ArrayList()
     }
 
     fun getSolution():ArrayList<Int>{
@@ -58,10 +56,10 @@ class MazeModel {
         val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
 
         // Observe the LiveData to get the highest score asynchronously
-        itemViewModel.getHighScore().observe(context as AppCompatActivity, Observer { highScore ->
+        itemViewModel.getHighScore().observe(context) { highScore ->
             // Pass the value of highScore to the callback
             onHighScoreRetrieved(highScore)
-        })
+        }
     }
 
     fun isNewHighScore(context: Context) : Boolean{
@@ -161,7 +159,6 @@ class MazeModel {
         val gridWidth = col
         val gridHeight = row
 
-        val gridSize = gridWidth * gridHeight
         val visited = mutableSetOf<Int>()
         val path = ArrayList<Int>()
 
