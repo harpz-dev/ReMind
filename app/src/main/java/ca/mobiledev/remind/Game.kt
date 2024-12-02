@@ -77,9 +77,9 @@ class Game : BaseActivity() {
 
         konfettiView = findViewById(R.id.konfettiView)
 
-        var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        //var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
 
         //levels.se
 
@@ -111,7 +111,6 @@ class Game : BaseActivity() {
 
         gridLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                //solutionList = model.getSolution()
                 draw()
                 state = State.INGAME
                 gridLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -143,7 +142,6 @@ class Game : BaseActivity() {
     private fun restart(){
         state = State.PREGAME
         model.restart()
-        //model.getSolution()
         draw()
         state = State.INGAME
     }
@@ -259,7 +257,6 @@ class Game : BaseActivity() {
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
 
                 val button = findViewById<AppCompatButton>(resId)
-                //button.clearAnimation()
                 try {
                     when (i) {
                         model.getSolution()[0] -> {
