@@ -18,6 +18,11 @@
             android:theme="@style/Theme.ReMind"
             android:noHistory="true"/>
         <activity
+            android:name=".scorehistory.ScoreHistoryChimp"
+            android:exported="false"
+            android:theme="@style/Theme.ReMind"
+            android:noHistory="true"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

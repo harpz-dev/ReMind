@@ -68,7 +68,7 @@ class MazeModel {
         getHighScore(context) { highScore ->
             val currentScore = getLevel() // Assuming level represents score
             // Check if the current score is higher than the existing high score
-            if (highScore != null && currentScore > highScore) {
+            if ((highScore == null || currentScore > highScore) && currentScore > 1) {
                 bool = true
             }
         }

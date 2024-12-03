@@ -12,14 +12,14 @@ import ca.mobiledev.remind.abstractclasses.BaseActivity
 import ca.mobiledev.remind.R
 import ca.mobiledev.remind.pathwaysgame.MazeModel
 
-class ScoreHistory : BaseActivity() {
+class ScoreHistoryChimp : BaseActivity() {
 
     private lateinit var itemViewModel: ScoreViewModel
     private lateinit var listView: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        layoutInflater.inflate(R.layout.activity_score_history, findViewById(R.id.content_frame))
+        layoutInflater.inflate(R.layout.activity_score_history_chimp, findViewById(R.id.content_frame))
         val model: MazeModel = MazeModel()
         val level = model.getLevel()
         Log.d("level", "$level")
@@ -35,16 +35,16 @@ class ScoreHistory : BaseActivity() {
 
         itemViewModel = ViewModelProvider(this)[ScoreViewModel::class.java]
 
-            text.text = getString(R.string.pathways)
-            itemViewModel.getTopFivePathScores().observe(this, Observer { items ->
-                var adapter =
-                    ScoreAdapter(this, items)
-                listView.adapter = adapter
-            })
+        text.text = getString(R.string.chimpgame)
+        itemViewModel.getTopFiveChimpScores().observe(this, Observer { items ->
+            var adapter =
+                ScoreAdapter(this, items)
+            listView.adapter = adapter
+        })
     }
 
     private fun switchGame() {
-        val intent = Intent(this, ScoreHistoryChimp::class.java)
+        val intent = Intent(this, ScoreHistory::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         startActivity(intent)
     }
