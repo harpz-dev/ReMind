@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
@@ -11,12 +12,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
@@ -250,6 +253,7 @@ class Game : BaseActivity() {
                 val buttonId = "btnRound$i"
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
                 val button = findViewById<AppCompatButton>(resId)
+                button.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
                 button.clearAnimation()
 
                 if(solutionList.contains((i))) {
@@ -278,8 +282,20 @@ class Game : BaseActivity() {
     }
 
     private fun submit() {
+        val view = findViewById<LinearLayout>(R.id.chimpGame)
         if(!model.compare()){
-            val popup = Snackbar.make(submitButton,"Try Again", 1000)
+            val shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake)
+            view.startAnimation(shakeAnimation)
+            view.performHapticFeedback(HapticFeedbackConstants.REJECT)
+            val popup = Snackbar.make(submitButton,R.string.try_again, 500)
+            popup.setAnchorView(findViewById(R.id.gameGrid))
+            val snackView = popup.view
+            snackView.setBackgroundColor(Color.TRANSPARENT)
+            val textView: TextView = snackView.findViewById(com.google.android.material.R.id.snackbar_text)
+            textView.setBackgroundColor(Color.TRANSPARENT)
+            textView.setTextColor(getResources().getColor(R.color.white))
+            textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            textView.textSize = 20f
             popup.show()
             Log.w("Not in list", "Not in list")
             model.decAttempts()
@@ -287,6 +303,7 @@ class Game : BaseActivity() {
         }
         else{
             Log.w("All good", "All good")
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
             model.incLevel()
             model.incStreak()
             refresh()

@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:rowCount="2"
         android:useDefaultMargins="true"
-
         android:columnCount="2"
         android:gravity="center"
         android:layout_margin="16dp"
