@@ -22,7 +22,7 @@ Technical features include:
 
 ### Observation Phase:
 Players observe a visually displayed path on the grid:
-- **Start Point**: Highlighted by a Pulsating blue node
+- **Start Point**: Highlighted by a pulsating blue node
 - **End Point**: Marked by where the sequence ends.
 - **Path**: Drawn in blue to indicate the sequence.
 
@@ -37,19 +37,22 @@ Players observe a visually displayed path on the grid:
 
 ## Screenshots
 
-1. **Gameplay**:  
-![image](https://github.com/user-attachments/assets/e0490e61-bcea-4f58-a18e-5f85c243764b)
+1. **Gameplay**:
+![Screenshot_20241202_220401_ReMind](https://github.com/user-attachments/assets/278a24b1-9979-4d11-a4d4-98d58520939a)
+![Screenshot_20241202_220433_ReMind](https://github.com/user-attachments/assets/15eca1b9-ffb9-40ca-8d00-a895b2d1b4b1)
+
 
 
 
 2. **Main Menu**:  
-  ![image](https://github.com/user-attachments/assets/1a52dfe5-d949-4392-913f-6c193c4162b9)
+   ![Screenshot_20241202_221634_ReMind](https://github.com/user-attachments/assets/bde74c2a-ed50-4f89-9cf5-30f86c9afbc0)
+
 
 
 
 3. **Score History**:  
-
-![image](https://github.com/user-attachments/assets/f28523f8-fb80-4a24-9ffa-42c0f6d7eb37)
+![Screenshot_20241202_220410_ReMind](https://github.com/user-attachments/assets/3f690a07-bd1f-4f78-b96a-833e75fb330d)
+![Screenshot_20241202_220413_ReMind](https://github.com/user-attachments/assets/c4393718-17a1-493a-b1b6-8fd61043e1d5)
 
 
 ## Technical Details
@@ -62,17 +65,10 @@ The game’s implementation includes:
   - Blue: Active path nodes.
   - Pulsating Blue node: Indicates the start point of the sequence
  
-## Database Schema
-PathScore Entity:
-- attemptNo (Primary Key)
-- dateTime (String)
-- score (Int)
-- timeTaken (Long)
-
 ## Installation 
 - **Requirements**:
 - Android 8.1(API 27) or higher
-- Target SDK: Android 14(API 34)
+- Target SDK: Android 14(API 31)
 
 ## Development
 - **Key Dependancies**:
@@ -80,7 +76,6 @@ PathScore Entity:
 - Room Database (v2.6.1)
 - Material Design Components
 - ViewBinding
-- Coroutines
 
 ## Future Enhancements:
 - Additional Mini-games
