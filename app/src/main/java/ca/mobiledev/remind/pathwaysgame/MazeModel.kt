@@ -1,10 +1,11 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.pathwaysgame
 
 
 import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import ca.mobiledev.remind.scorehistory.ScoreViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Collections
@@ -53,10 +54,10 @@ class MazeModel {
     }
 
     fun getHighScore(context: Context, onHighScoreRetrieved: (Int?) -> Unit) {
-        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[ScoreViewModel::class.java]
 
         // Observe the LiveData to get the highest score asynchronously
-        itemViewModel.getHighScore().observe(context) { highScore ->
+        itemViewModel.getPathHighScore().observe(context) { highScore ->
             // Pass the value of highScore to the callback
             onHighScoreRetrieved(highScore)
         }
@@ -67,7 +68,7 @@ class MazeModel {
         getHighScore(context) { highScore ->
             val currentScore = getLevel() // Assuming level represents score
             // Check if the current score is higher than the existing high score
-            if (highScore != null && currentScore > highScore) {
+            if ((highScore == null || currentScore > highScore) && currentScore > 1) {
                 bool = true
             }
         }
@@ -209,11 +210,11 @@ class MazeModel {
 
     fun saveScore(context: Context){
 
-        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+        val itemViewModel = ViewModelProvider(context as AppCompatActivity)[ScoreViewModel::class.java]
 
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val current = LocalDateTime.now().format(formatter)
-        itemViewModel.insert(current, level, 20)
+        itemViewModel.insert(current, level, "PathwaysGame")
     }
 
     init {

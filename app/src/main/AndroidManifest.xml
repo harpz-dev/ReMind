@@ -13,21 +13,35 @@
         android:theme="@style/Theme.ReMind"
         tools:targetApi="31" >
         <activity
-            android:name=".ScoreHistory"
+            android:name=".scorehistory.ScoreHistory"
             android:exported="false"
-            android:theme="@style/Theme.ReMind" />
+            android:theme="@style/Theme.ReMind"
+            android:noHistory="true"/>
+        <activity
+            android:name=".scorehistory.ScoreHistoryChimp"
+            android:exported="false"
+            android:theme="@style/Theme.ReMind"
+            android:noHistory="true"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Game"
-            android:label = "@string/game_activity"
-            android:exported="true">
+            android:name=".pathwaysgame.Game"
+            android:label = "@string/pathways_game_activity"
+            android:exported="true"
+            android:noHistory="true">
+        </activity>
+
+        <activity
+            android:name=".chimpgame.Game"
+            android:label = "@string/chimp_game_activity"
+            android:exported="true"
+            android:noHistory="true">
         </activity>
 
         <meta-data

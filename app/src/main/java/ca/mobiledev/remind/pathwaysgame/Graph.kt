@@ -1,6 +1,4 @@
-package ca.mobiledev.remind
-
-import android.util.Log
+package ca.mobiledev.remind.pathwaysgame
 
 
 // Class representing a point in the grid

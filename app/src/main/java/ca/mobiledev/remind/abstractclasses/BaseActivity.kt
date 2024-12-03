@@ -1,4 +1,4 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.abstractclasses
 
 import android.content.ActivityNotFoundException
 import android.content.ContentValues.TAG
@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import ca.mobiledev.remind.MainActivity
+import ca.mobiledev.remind.R
+import ca.mobiledev.remind.scorehistory.ScoreHistory
 import com.google.android.material.navigation.NavigationView
 
 open class BaseActivity : AppCompatActivity() {
@@ -28,7 +31,10 @@ open class BaseActivity : AppCompatActivity() {
 
         val navView: NavigationView = findViewById(R.id.navView)
 
-        val toggle= ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        val toggle= ActionBarDrawerToggle(this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawerLayout.addDrawerListener(toggle)
         //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
         toggle.syncState()
@@ -36,10 +42,12 @@ open class BaseActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener { menuItem->
             when(menuItem.itemId){
-                R.id.nav_home->{
+                R.id.nav_home ->{
                     //bring the home page to the front
                     val intent = Intent(this, MainActivity::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP + Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
                     try {
                         startActivity(intent)
                     } catch (ex: ActivityNotFoundException) {
@@ -48,13 +56,14 @@ open class BaseActivity : AppCompatActivity() {
 
                 }
 
-                R.id.nav_settings->{
+                R.id.nav_settings ->{
                     //start settings activity
                 }
 
-                R.id.nav_history->{
+                R.id.nav_history ->{
                     //start score activity
                     val intent = Intent(applicationContext, ScoreHistory::class.java)
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                     try {
                         startActivity(intent)
                     } catch (ex: ActivityNotFoundException) {

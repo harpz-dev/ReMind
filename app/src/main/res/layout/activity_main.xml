@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gridLayout"
@@ -11,38 +12,86 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
         android:fontFamily="sans-serif-smallcaps"
         android:text="@string/minigame"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- ImageButton for the game logo -->
-    <ImageButton
-        android:id="@+id/btnStart"
+    <!-- GridLayout for ImageButtons and TextViews -->
+    <GridLayout
+        android:id="@+id/gridButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/pathways"
-        android:src="@drawable/pathwayslogo"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:rowCount="2"
+        android:useDefaultMargins="true"
+        android:columnCount="2"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- TextView for "Coming Soon" or moregames -->
+        <!-- Pathways ImageButton -->
+        <ImageButton
+            android:id="@+id/btnPathways"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:src="@drawable/pathwayslogo"
+            android:contentDescription="@string/pathways" />
+
+        <!-- Pathways TextView -->
+
+        <!-- Chimpgame ImageButton -->
+        <TextView
+            android:id="@+id/tvPathways"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_horizontal"
+            android:text="@string/pathways"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnChimpgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:src="@drawable/pathwayslogo"
+            android:contentDescription="@string/chimpgame" />
+
+        <!-- Chimpgame TextView -->
+        <TextView
+            android:id="@+id/tvChimpgame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:gravity="center"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="@string/chimpgame"
+            android:textSize="16sp" />
+    </GridLayout>
+
+    <!-- TextView for "Coming Soon" or more games -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
         android:text="@string/moregames"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

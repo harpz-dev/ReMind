@@ -1,10 +1,8 @@
-package ca.mobiledev.remind
+package ca.mobiledev.remind.scorehistory
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import ca.mobiledev.remind.abstractclasses.BaseActivity
+import ca.mobiledev.remind.R
 
 class ScoreHistoryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
