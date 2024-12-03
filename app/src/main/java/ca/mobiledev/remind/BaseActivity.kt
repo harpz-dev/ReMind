@@ -30,6 +30,7 @@ open class BaseActivity : AppCompatActivity() {
 
         val toggle= ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
         toggle.syncState()
 
 
@@ -44,6 +45,7 @@ open class BaseActivity : AppCompatActivity() {
                     } catch (ex: ActivityNotFoundException) {
                         Log.e(TAG, "Unable to start the activity")
                     }
+
                 }
 
                 R.id.nav_settings->{

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AlertDialog
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.CornerPathEffect
 import android.graphics.Paint
 import android.graphics.Path
@@ -12,17 +11,26 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+<<<<<<< HEAD
 import android.view.HapticFeedbackConstants
+=======
+>>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.GridLayout
-import android.widget.LinearLayout
 import android.widget.TextView
+<<<<<<< HEAD
+=======
+import androidx.appcompat.app.ActionBarDrawerToggle
+>>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
@@ -36,6 +44,7 @@ class Game : BaseActivity() {
     private lateinit var lineView: LineView
     private lateinit var gridLayout: GridLayout
 
+    //private lateinit var refreshButton: AppCompatButton
     private lateinit var submitButton: AppCompatButton
 
     private lateinit var levels: TextView
@@ -58,16 +67,29 @@ class Game : BaseActivity() {
         lineView = LineView(this, gridLayout)
         frameLayout.addView(lineView)
 
+        //refreshButton = findViewById(R.id.buttonRefresh)
+        //refreshButton.visibility(View.GONE)
         submitButton = findViewById(R.id.buttonSubmit)
 
         submitButton.setOnClickListener{
             submit()
         }
 
+        /*refreshButton.setOnClickListener{
+            refresh()
+        }*/
+
         levels = findViewById(R.id.level)
         attempts = findViewById(R.id.attempts)
 
         konfettiView = findViewById(R.id.konfettiView)
+
+        //var drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+
+        //drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.START)
+
+        //levels.se
+
 
         var currentButton = -1
         gridLayout.setOnTouchListener { _, motionEvent ->
@@ -151,35 +173,42 @@ class Game : BaseActivity() {
     private fun buildHighScore() :String {
         var message =""
         model.getHighScore(this) { highScore ->
-            val currentScore = model.getLevel()
+            val currentScore = model.getLevel() // Assuming level represents score
 
+            // Flag to determine if a new high score is set
             var resultMessage =
                 "You reached level $currentScore\nThe highest score is: ${highScore ?: "N/A"}"
 
+            // Check if the current score is higher than the existing high score
             if (highScore == null ||  currentScore > highScore) {
-                Log.d("Highscore", "$highScore")
+
+                // New high score! Update the message
+                //model.updateHighScore(currentScore) // Assuming method updates high score in the DB
                 resultMessage =
-                    "New high score!\nYou reached level $currentScore."
+                    "Congratulations! You set a new high score\nYou reached level $currentScore."
             }
             message = resultMessage
         }
             return message
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
     fun draw() {
-        clear()
+        clear() //clears buttons
         val bool = model.isNewHighScore(this)
-        Log.d("Highscore", "$bool")
         var string = "Level: ${model.getLevel()}"
         if(bool){
             string = "Level: ${model.getLevel()}${getString(R.string.championCup)}"
         }
 
         var string2 = "Attempts: ${model.getAttempts()}"
-        if(model.getStreak()>2){
+        if(model.getStreak()>4){
             string2 = "Attempts: ${model.getAttempts()}${getString(R.string.flames)}"
         }
+
 
         val resultMessage = buildHighScore()
         levels.text = string
@@ -232,7 +261,6 @@ class Game : BaseActivity() {
             builder.setCancelable(false)
             builder.create().show()
         }
-
         if (state == State.PREGAME) {
             Log.d("points", "New game with new solution: ${model.getSolution()}")
             for (i: Int in model.getSolution()) {
@@ -274,7 +302,6 @@ class Game : BaseActivity() {
                 val buttonId = "btnRound$i"
                 val resId = resources.getIdentifier(buttonId, "id", packageName)
                 val button = findViewById<AppCompatButton>(resId)
-                button.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
                 button.clearAnimation()
                 if (selectedList.contains(i)) {
                     button.setBackgroundDrawable(
@@ -294,20 +321,8 @@ class Game : BaseActivity() {
     }
 
     private fun submit() {
-        val view = findViewById<LinearLayout>(R.id.game)
         if(!model.compare()){
-            val shakeAnimation = AnimationUtils.loadAnimation(this, R.anim.shake)
-            view.startAnimation(shakeAnimation)
-            view.performHapticFeedback(HapticFeedbackConstants.REJECT)
-            val popup = Snackbar.make(submitButton,R.string.try_again, 500)
-            popup.setAnchorView(findViewById(R.id.gameGrid))
-            val snackView = popup.view
-            snackView.setBackgroundColor(Color.TRANSPARENT)
-            val textView: TextView = snackView.findViewById(com.google.android.material.R.id.snackbar_text)
-            textView.setBackgroundColor(Color.TRANSPARENT)
-            textView.setTextColor(getResources().getColor(R.color.white))
-            textView.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            textView.textSize = 20f
+            val popup = Snackbar.make(submitButton,"Try Again", 1000)
             popup.show()
             Log.w("Not in list", "Not in list")
             model.decAttempts()
@@ -315,7 +330,6 @@ class Game : BaseActivity() {
         }
         else{
             Log.w("All good", "All good")
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
             model.incLevel()
             model.incStreak()
             refresh()

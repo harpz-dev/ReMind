@@ -15,6 +15,7 @@ class MainActivity : BaseActivity() {
 
         val startButton = findViewById<ImageButton>(R.id.btnStart)
         startButton.setBackgroundColor(resources.getColor(R.color.blue))
+        //startButton.setTextColor(resources.getColor(R.color.white))
         startButton.setOnClickListener {
             val intent = Intent(applicationContext, Game::class.java)
             try {
@@ -23,5 +24,6 @@ class MainActivity : BaseActivity() {
                 Log.e(TAG, "Unable to start the activity")
             }
         }
+        }
+
     }
-}

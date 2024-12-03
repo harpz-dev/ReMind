@@ -59,7 +59,6 @@ class MazeModel {
         itemViewModel.getHighScore().observe(context) { highScore ->
             // Pass the value of highScore to the callback
             onHighScoreRetrieved(highScore)
-            Log.d("Highscore", "$highScore")
         }
     }
 
@@ -68,7 +67,7 @@ class MazeModel {
         getHighScore(context) { highScore ->
             val currentScore = getLevel() // Assuming level represents score
             // Check if the current score is higher than the existing high score
-            if ((highScore == null || currentScore > highScore) && currentScore > 1) {
+            if (highScore != null && currentScore > highScore) {
                 bool = true
             }
         }
@@ -200,6 +199,7 @@ class MazeModel {
             path.add(currentCell)
             visited.add(currentCell)
         }
+
         return path
     }
 
@@ -208,13 +208,16 @@ class MazeModel {
     }
 
     fun saveScore(context: Context){
+
         val itemViewModel = ViewModelProvider(context as AppCompatActivity)[PathScoreViewModel::class.java]
+
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val current = LocalDateTime.now().format(formatter)
         itemViewModel.insert(current, level, 20)
     }
 
     init {
+        //solutionList= arrayListOf(1, 2, 3, 4, 5)
         solutionList= generatePath()
     }
 }
