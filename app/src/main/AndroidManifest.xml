@@ -16,15 +16,21 @@
             android:name=".scorehistory.ScoreHistory"
             android:exported="false"
             android:theme="@style/Theme.ReMind"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:noHistory="true"/>
         <activity
             android:name=".scorehistory.ScoreHistoryChimp"
             android:exported="false"
             android:theme="@style/Theme.ReMind"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:noHistory="true"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -34,14 +40,18 @@
             android:name=".pathwaysgame.Game"
             android:label = "@string/pathways_game_activity"
             android:exported="true"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
             android:name=".chimpgame.Game"
             android:label = "@string/chimp_game_activity"
             android:exported="true"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
