@@ -13,7 +13,10 @@ import android.os.Looper
 import android.util.Log
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.view.HapticFeedbackConstants
+=======
+>>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 =======
 >>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 =======
@@ -27,6 +30,10 @@ import android.widget.GridLayout
 import android.widget.TextView
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import androidx.appcompat.app.ActionBarDrawerToggle
+>>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 =======
 import androidx.appcompat.app.ActionBarDrawerToggle
 >>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
@@ -201,7 +208,10 @@ class Game : BaseActivity() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 =======
 >>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 =======
