@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import ca.mobiledev.remind.MainActivity
 import ca.mobiledev.remind.R
+import ca.mobiledev.remind.SettingsActivity
 import ca.mobiledev.remind.scorehistory.ScoreHistory
 import com.google.android.material.navigation.NavigationView
 
@@ -58,6 +59,14 @@ open class BaseActivity : AppCompatActivity() {
 
                 R.id.nav_settings ->{
                     //start settings activity
+                    val intent = Intent(applicationContext, SettingsActivity::class.java)
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                    try {
+                        startActivity(intent)
+                    } catch (ex: ActivityNotFoundException) {
+                        Log.e(TAG, "Unable to start the activity")
+                    }
+
                 }
 
                 R.id.nav_history ->{
