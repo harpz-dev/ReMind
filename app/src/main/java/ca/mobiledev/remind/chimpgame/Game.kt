@@ -141,23 +141,19 @@ class Game : BaseActivity() {
     private fun buildHighScore() :String {
         var message =""
         model.getHighScore(this) { highScore ->
-            val currentScore = model.getLevel() // Assuming level represents score
+            val currentScore = model.getLevel()
 
-            // Flag to determine if a new high score is set
             var resultMessage =
                 "You reached level $currentScore\nThe highest score is: ${highScore ?: "N/A"}"
 
-            // Check if the current score is higher than the existing high score
             if (highScore == null ||  currentScore > highScore) {
-
-                // New high score! Update the message
-                //model.updateHighScore(currentScore) // Assuming method updates high score in the DB
+                Log.d("Highscore", "$highScore")
                 resultMessage =
-                    "Congratulations! You set a new high score\nYou reached level $currentScore."
+                    "New high score!\nYou reached level $currentScore."
             }
             message = resultMessage
         }
-            return message
+        return message
     }
 
     fun draw() {
