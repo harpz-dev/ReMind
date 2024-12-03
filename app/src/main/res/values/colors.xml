@@ -8,4 +8,6 @@
     <color name = "orange">#DE7F50</color>
     <color name = "green">#68DE50</color>
     <color name = "yellow">#DED450</color>
+    <color name="textColPrimary">#000000</color>
+
 </resources>
