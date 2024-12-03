@@ -11,16 +11,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import android.view.HapticFeedbackConstants
-=======
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
-=======
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
-=======
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver
@@ -28,18 +18,7 @@ import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.GridLayout
 import android.widget.TextView
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import androidx.appcompat.app.ActionBarDrawerToggle
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
-=======
-import androidx.appcompat.app.ActionBarDrawerToggle
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
-=======
-import androidx.appcompat.app.ActionBarDrawerToggle
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.GravityCompat
@@ -206,16 +185,6 @@ class Game : BaseActivity() {
             return message
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
-=======
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
-=======
->>>>>>> parent of 52562cf (Added haptic feedback and fixed snackbar)
     fun draw() {
         clear() //clears buttons
         val bool = model.isNewHighScore(this)
